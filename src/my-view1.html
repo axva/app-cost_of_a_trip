@@ -1,0 +1,64 @@
+<!--
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../bower_components/polymer/polymer.html">  <!-- importa el template de Polymer -->
+<link rel="import" href="shared-styles.html">
+<link rel="import" href="../bower_components/iron-ajax/iron-ajax.html"> <!-- importacion de webcomponents -->
+
+<dom-module id="my-view1">
+  <template>
+    <style include="shared-styles">
+      :host {
+        display: block;
+
+        padding: 10px;
+      }
+    </style>
+
+<!-- IRON AJAX -->
+<!-- aqui se pasan los parametros, el metodo de peticion, el script -->
+    <iron-ajax id="ajax"
+      auto
+      url="http://127.0.0.1:5000/"
+      method="GET"
+      handle-as="json"
+      content-type="application/json"
+      on-response="didRespond">
+    </iron-ajax>
+
+    <template is="dom-repeat" items="{{items}}">
+    <h1>La marca {{item.Nombre.Marca}} tiene los carros {{item.Nombre.Carros}}</h1>
+    </template>
+
+  </template>
+
+  <script>
+    Polymer({
+      is: 'my-view1',
+      properties: { //propiedades de Polymer
+        items:{
+          type: Object, //se puede asignar valores String, bool, int, etc
+          notify: true
+        }
+      },
+      didRespond: function(event){ //se crea una funcion con un nombre de retorno sugerido *event*
+        console.log(event.detail.response.MARCA)
+        this.set("items", event.detail.response.MARCA)
+
+
+
+        //for(let marca  in event.detail.response.MARCA){
+          //console.log(event.detail.response.MARCA[marca].Nombre)
+        //this.push('items', marca); // Aquí se puebla el dropdown de áreas
+      //}
+    }
+    });
+  </script>
+</dom-module>
