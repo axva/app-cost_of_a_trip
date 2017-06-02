@@ -33,31 +33,39 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       on-response="didRespond">
     </iron-ajax>
 
-    <template is="dom-repeat" items="{{items}}">
-    <h1>La marca {{item.Nombre.Marca}} tiene los carros {{item.Nombre.Carros}}</h1>
+    <template is="dom-repeat" items="{{json2}}">
+      <h1>La marca {{item.MARCA}}</h1>
+
     </template>
 
   </template>
 
   <script>
+  //   <h1>La marca {{item.Nombre.Marca}} tiene los carros {{item.Nombre.Carros}}</h1>
     Polymer({
       is: 'my-view1',
       properties: { //propiedades de Polymer
         items:{
           type: Object, //se puede asignar valores String, bool, int, etc
           notify: true
+        },
+        json2: {
+          type: Object,
+          value:[{"MARCA":[]}],
+          notify: true
         }
       },
       didRespond: function(event){ //se crea una funcion con un nombre de retorno sugerido *event*
-        console.log(event.detail.response.MARCA)
-        this.set("items", event.detail.response.MARCA)
+        // console.log(event.detail)
+        var json=event.detail.response.MARCA
 
+        for (i=0; i<Object.keys(json).length ; i++){
+          console.log(json)
+          this.json2[i]= {"MARCA":[Object.keys(json)[i]]}
 
+          }
+          console.log(this.json2)
 
-        //for(let marca  in event.detail.response.MARCA){
-          //console.log(event.detail.response.MARCA[marca].Nombre)
-        //this.push('items', marca); // Aquí se puebla el dropdown de áreas
-      //}
     }
     });
   </script>
