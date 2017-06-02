@@ -34,10 +34,21 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </iron-ajax>
     <template is="dom-if" if={{is_ready}}>
       <template is="dom-repeat" items="{{json2}}">
-        <h1>La marca {{item.marca}}</h1>
-        Sus submarcas son {{item.submarcas}}
+        <div on-tap="obtenerMarca">
+        <h1 value="{{item.marca}}">{{item.marca}}</h1>
+      </div>
     </template>
       </template>
+
+      <template is="dom-if" if={{existe_marca}}>
+        <template is="dom-repeat" items="{{json2}}">
+          <div on-tap="obtenerMarca">
+          <h1 value="{{item.marca}}">{{item.marca}}</h1>
+        </div>
+      </template>
+        </template>
+
+
 
   </template>
 
@@ -59,39 +70,48 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           type: Boolean,
           value:false,
           notify: true
-        }
+        },
+        marca: {
+          type: String,
+          notify: true
+        },
+        existe_marca: {
+          type: Boolean,
+          value: false
+        },
 
+          json:{
+            type: Object,
+            value:[],
+            notify: true
+          }
       },
       didRespond: function(event){ //se crea una funcion con un nombre de retorno sugerido *event*
         this.is_ready= true
-        // console.log(event.detail)
-        var json=event.detail.response.MARCA
-
-        for (i=0; i<Object.keys(json).length ; i++){
-
-          // for(j=0;j<Object.keys(json[i]).length;j++){
-            // console.log(json[i])}
-          console.log(json)
-          this.json2[i]= {"marca":[Object.keys(json)[i]], "submarcas":Object.keys(json[Object.keys(json)[i]])}
-
+        this.json=event.detail.response.MARCA
+        for (i=0; i<Object.keys(this.json).length ; i++){
+          this.json2[i]= {"marca":[Object.keys(this.json)[i]], "submarcas":Object.keys(this.json[Object.keys(this.json)[i]])}
           }
-          console.log(this.json2)
-
+    },
+    obtenerMarca: function(event){
+      this.marca=event.target.innerText.trim()
+      this.existe_marca= true
+      this.submarca_json= Object.keys(this.json[this.marca])
     }
-
+    ///
   //   didRespond: function(event){ //se crea una funcion con un nombre de retorno sugerido *event*
   //     this.is_ready= true
   //     // console.log(event.detail)
   //     var json=event.detail.response.MARCA
-  //
   //     for (i=0; i<Object.keys(json).length ; i++){
-  //       // console.log(json)
-  //       this.json2[i]= {"marca":[Object.keys(json)[i]]}
-  //
+  //       console.log(json)
+  //       this.json2[i]= {"marca":[Object.keys(json)[i]], "submarcas":Object.keys(json[Object.keys(json)[i]])}
   //       }
   //       console.log(this.json2)
   //
   // }
+
+
     });
   </script>
 </dom-module>
