@@ -59,12 +59,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 
 
-
-
-
-        <template is="dom-if" if={{existe_Anio}}>
-          <template is="dom-repeat" items="{{version_json}}">
-            <div on-tap="obtenerVersiones">
+        <template is="dom-if" if={{existe_version}}>
+          <template is="dom-repeat" items="{{versiones_json}}">
+            <div>
             <h1 value="{{item}}">{{item}}</h1>
           </div>
         </template>
@@ -135,7 +132,20 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             type: String,
             notify: true
           },
+          existe_version:{
+            type: Boolean,
+            value: false
+          },
           element:{
+            type: Object,
+            notify: true,
+            value:[]
+          },
+          version_json:{
+            type: Object,
+            notify: true,
+          },
+          versiones_json:{
             type: Object,
             notify: true,
             value:[]
@@ -162,14 +172,37 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     },
     obtenerAnio: function(event){
       this.anio=event.target.innerText.trim()
-      // console.log(this.json[this.marca][this.submarca][this.anio])
-      for (j=0;j<this.anio_json.length;j++){
-        if ((this.anio_json[j]== this.anio)) {
-          this.element= this.json[this.marca][this.submarca][this.anio].Versiones[j].Version
-          console.log(this.element)
-        }
-      }
+      this.version_json=this.json[this.marca][this.submarca][this.anio].Versiones
+      //  console.log(this.version_json)
+              // this.versiones_json=[0]
+              var lista= []
+      for (j=0;j<this.version_json.length;j++){
+        this.version=this.version_json[j].Version
+        console.log(this.version)
 
+        lista.push(this.version)
+        console.log(lista)
+        // this.versiones_json[this.versiones_json.length]= this.version
+
+        // console.log(this.version)
+        // if ((this.anio_json[j]== this.anio)) {
+        //   this.element= this.json[this.marca][this.submarca][this.anio].Versiones[j].Version
+        //   console.log(this.element)
+        // }
+      }
+      this.versiones_json= lista
+      this.existe_version= true
+      // console.log(this.versiones_json)
+      // this.existe_version= true
+
+      // this.anio=event.target.innerText.trim()
+      // // console.log(this.json[this.marca][this.submarca][this.anio])
+      // for (j=0;j<this.anio_json.length;j++){
+      //   if ((this.anio_json[j]== this.anio)) {
+      //     this.element= this.json[this.marca][this.submarca][this.anio].Versiones[j].Version
+      //     console.log(this.element)
+      //   }
+      // }
 
 
       // for (element in this.anio_json){
