@@ -7,7 +7,7 @@ The complete set of contributors may be found at http://polymer.github.io/CONTRI
 Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 -->
-
+<!-- HTML imports -->
 <link rel="import" href="../bower_components/polymer/polymer.html">  <!-- importa el template de Polymer -->
 <link rel="import" href="shared-styles.html">
 <link rel="import" href="../bower_components/iron-ajax/iron-ajax.html"> <!-- importacion de webcomponents -->
@@ -32,6 +32,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       content-type="application/json"
       on-response="didRespond">
     </iron-ajax>
+<!-- DOM-if -->
+  <!-- DOM-repeat -->
     <template is="dom-if" if={{is_ready}}>
       <template is="dom-repeat" items="{{json2}}">
         <div on-tap="obtenerMarca">
