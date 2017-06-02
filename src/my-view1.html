@@ -42,12 +42,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       <template is="dom-if" if={{existe_marca}}>
         <template is="dom-repeat" items="{{submarca_json}}">
-          <div on-tap="obtenerMarca">
+          <div on-tap="obtenerSumbmarca">
           <h1 value="{{item}}">{{item}}</h1>
         </div>
       </template>
         </template>
 
+        <template is="dom-if" if={{existe_Submarca}}>
+          <template is="dom-repeat" items="{{anio_json}}">
+            <div on-tap="obtenerSumbmarca">
+            <h1 value="{{item}}">{{item}}</h1>
+          </div>
+        </template>
+          </template>
 
 
   </template>
@@ -84,6 +91,18 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             type: Object,
             value:[],
             notify: true
+          },
+          submarca: {
+            type: String,
+            notify: true
+          },
+          existe_Submarca: {
+            type: Boolean,
+            value: false
+          },
+          submarca_json:{
+            type: String,
+            value: true
           }
       },
       didRespond: function(event){ //se crea una funcion con un nombre de retorno sugerido *event*
@@ -97,8 +116,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       this.marca=event.target.innerText.trim()
       this.existe_marca= true
       this.submarca_json= Object.keys(this.json[this.marca])
-      console.log(this.submarca_json)
+
+    },
+    obtenerSumbmarca: function(event){
+      this.submarca=event.target.innerText.trim()
+      this.existe_Submarca= true
+      this.anio_json= Object.keys(this.json[this.marca][this.submarca])
+      console.log(this.anio_json)
+
     }
+
+
     ///
   //   didRespond: function(event){ //se crea una funcion con un nombre de retorno sugerido *event*
   //     this.is_ready= true
