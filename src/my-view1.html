@@ -41,9 +41,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       </template>
 
       <template is="dom-if" if={{existe_marca}}>
-        <template is="dom-repeat" items="{{json2}}">
+        <template is="dom-repeat" items="{{submarca_json}}">
           <div on-tap="obtenerMarca">
-          <h1 value="{{item.marca}}">{{item.marca}}</h1>
+          <h1 value="{{item}}">{{item}}</h1>
         </div>
       </template>
         </template>
@@ -97,18 +97,20 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       this.marca=event.target.innerText.trim()
       this.existe_marca= true
       this.submarca_json= Object.keys(this.json[this.marca])
+      console.log(this.submarca_json)
     }
     ///
   //   didRespond: function(event){ //se crea una funcion con un nombre de retorno sugerido *event*
   //     this.is_ready= true
-  //     // console.log(event.detail)
-  //     var json=event.detail.response.MARCA
-  //     for (i=0; i<Object.keys(json).length ; i++){
-  //       console.log(json)
-  //       this.json2[i]= {"marca":[Object.keys(json)[i]], "submarcas":Object.keys(json[Object.keys(json)[i]])}
+  //     this.json=event.detail.response.MARCA
+  //     for (i=0; i<Object.keys(this.json).length ; i++){
+  //       this.json2[i]= {"marca":[Object.keys(this.json)[i]], "submarcas":Object.keys(this.json[Object.keys(this.json)[i]])}
   //       }
-  //       console.log(this.json2)
-  //
+  // },
+  // obtenerMarca: function(event){
+  //   this.marca=event.target.innerText.trim()
+  //   this.existe_marca= true
+  //   this.submarca_json= Object.keys(this.json[this.marca])
   // }
 
 
