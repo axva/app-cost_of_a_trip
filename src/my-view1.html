@@ -50,7 +50,21 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
         <template is="dom-if" if={{existe_Submarca}}>
           <template is="dom-repeat" items="{{anio_json}}">
-            <div on-tap="obtenerSumbmarca">
+            <div on-tap="obtenerAnio">
+            <h1 value="{{item}}">{{item}}</h1>
+          </div>
+        </template>
+          </template>
+
+
+
+
+
+
+
+        <template is="dom-if" if={{existe_Anio}}>
+          <template is="dom-repeat" items="{{version_json}}">
+            <div on-tap="obtenerVersiones">
             <h1 value="{{item}}">{{item}}</h1>
           </div>
         </template>
@@ -103,6 +117,28 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           submarca_json:{
             type: String,
             value: true
+          },
+          anio: {
+            type: String,
+            notify: true
+          },
+          existe_Anio: {
+            type: Boolean,
+            value: false
+          },
+          anio_json:{
+            type: Object,
+            notify: true,
+            value: []
+          },
+          version: {
+            type: String,
+            notify: true
+          },
+          element:{
+            type: Object,
+            notify: true,
+            value:[]
           }
       },
       didRespond: function(event){ //se crea una funcion con un nombre de retorno sugerido *event*
@@ -116,14 +152,46 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       this.marca=event.target.innerText.trim()
       this.existe_marca= true
       this.submarca_json= Object.keys(this.json[this.marca])
-
     },
     obtenerSumbmarca: function(event){
       this.submarca=event.target.innerText.trim()
       this.existe_Submarca= true
       this.anio_json= Object.keys(this.json[this.marca][this.submarca])
-      console.log(this.anio_json)
+      // console.log(this.anio_json)
 
+    },
+    obtenerAnio: function(event){
+      this.anio=event.target.innerText.trim()
+      // console.log(this.json[this.marca][this.submarca][this.anio])
+      for (j=0;j<this.anio_json.length;j++){
+        if ((this.anio_json[j]== this.anio)) {
+          this.element= this.json[this.marca][this.submarca][this.anio].Versiones[j].Version
+          console.log(this.element)
+        }
+      }
+
+
+
+      // for (element in this.anio_json){
+      //     console.log(this.element)
+      //   // if (this.element=this.anio_json) {
+      //   //   console.log("holi")
+      //   //
+      //   // }
+      // }
+      // for (j=0;j<this.anio_json.length;j++){
+      //   if ((this.anio_json[j]=this.anio)) {
+      //     console.log("holi")
+      //   }
+      // }
+      // this.existe_Anio= true
+      // this.version_json= this.json[this.marca][this.submarca][this.anio]
+      // for (j=0;j<this.version_json.length;j++){
+      // this.version= this.version_json[i]
+      // console.log((this.version))
+      },
+    obtenerVersiones: function(event){
+      console.log("holi")
     }
 
 
@@ -139,6 +207,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   //   this.marca=event.target.innerText.trim()
   //   this.existe_marca= true
   //   this.submarca_json= Object.keys(this.json[this.marca])
+  // },
+  // obtenerSumbmarca: function(event){
+  //   this.submarca=event.target.innerText.trim()
+  //   this.existe_Submarca= true
+  //   this.anio_json= Object.keys(this.json[this.marca][this.submarca])
+  //   console.log(this.anio_json)
+  //
   // }
 
 
