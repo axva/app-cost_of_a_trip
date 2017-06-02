@@ -32,11 +32,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       content-type="application/json"
       on-response="didRespond">
     </iron-ajax>
-
-    <template is="dom-repeat" items="{{json2}}">
-      <h1>La marca {{item.MARCA}}</h1>
-
+    <template is="dom-if" if={{is_ready}}>
+      <template is="dom-repeat" items="{{json2}}">
+        <h1>La marca {{item.marca}}</h1>
     </template>
+      </template>
 
   </template>
 
@@ -51,17 +51,24 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         },
         json2: {
           type: Object,
-          value:[{"MARCA":[]}],
+          value:[{"marca":[]}],
+          notify: true
+        },
+        is_ready: {
+          type: Boolean,
+          value:false,
           notify: true
         }
+
       },
       didRespond: function(event){ //se crea una funcion con un nombre de retorno sugerido *event*
+        this.is_ready= true
         // console.log(event.detail)
         var json=event.detail.response.MARCA
 
         for (i=0; i<Object.keys(json).length ; i++){
-          console.log(json)
-          this.json2[i]= {"MARCA":[Object.keys(json)[i]]}
+          // console.log(json)
+          this.json2[i]= {"marca":[Object.keys(json)[i]]}
 
           }
           console.log(this.json2)
